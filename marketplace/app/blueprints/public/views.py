@@ -3,7 +3,7 @@ from flask_login import current_user
 
 from app import db
 from app.blueprints.account.forms import ContactForm
-from app.models import EditableHTML, ContactMessage
+from app.models import EditableHTML, ContactMessage, LandingSetting, OurBrand, NewsLink
 from app.blueprints.public.forms import PublicContactForm
 
 public = Blueprint('public', __name__)
@@ -11,11 +11,13 @@ public = Blueprint('public', __name__)
 
 @public.route('/')
 def index():
+    settings = LandingSetting.query.all()
+    brands = OurBrand.query.all()
+    newslinks = NewsLink.query.all()
     if current_user.is_authenticated:
         return redirect(url_for('main.index'))
     else:
-        return render_template('public/index.html', title1="medical", title2="healthcare", keyword1="professional",
-                               keyword2="network")
+        return render_template('public/page-index-1.html', settings=settings, brands=brands, newslinks=newslinks)
 
 
 @public.route('/about')

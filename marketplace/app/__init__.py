@@ -53,10 +53,10 @@ def create_app(config_name):
     app.config.from_object(config[config_name])
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     # not using sqlalchemy event system, hence disabling it
-    app.config['UPLOADED_IMAGES_DEST'] = 'C:/Users/user/mywebprojects/healthcareprofessionals/app/static/photo/' if \
+    app.config['UPLOADED_IMAGES_DEST'] = 'C:/Users/oem/Desktop/marketplace/marketplace/app/static/frontend/images/' if \
         not os.environ.get('UPLOADED_IMAGES_DEST') else os.path.dirname(os.path.realpath(__file__)) + os.environ.get(
         'UPLOADED_IMAGES_DEST')
-    app.config['UPLOADED_DOCS_DEST'] = 'C:/Users/user/mywebprojects/healthcareprofessionals/app/static/docs/' if \
+    app.config['UPLOADED_DOCS_DEST'] = ':/Users/oem/Desktop/marketplace/marketplace/appstatic/docs/' if \
         not os.environ.get('UPLOADED_DOCS_DEST') else os.path.dirname(os.path.realpath(__file__)) + os.environ.get(
         'UPLOADED_DOCS_DEST')
     app.config['docs'] = app.config['UPLOADED_DOCS_DEST']

@@ -6,10 +6,10 @@ from wtforms.ext.sqlalchemy.fields import QuerySelectField, QuerySelectMultipleF
 from wtforms.fields import PasswordField, StringField, SubmitField, BooleanField, IntegerField, FloatField, \
     MultipleFileField, TextAreaField, SelectField, FileField
 from wtforms.fields.html5 import EmailField
-from wtforms.validators import Email, EqualTo, InputRequired, Length
+from wtforms.validators import Email, EqualTo, InputRequired, Length, Optional
 
 from app import db
-from app.models import Role, User, MCurrency, MShippingMethod, MCategory
+from app.models import Role, User, MCurrency, MShippingMethod, MCategory, LandingImage, LandingSetting 
 
 images = UploadSet('images', IMAGES)
 
@@ -145,3 +145,84 @@ class MProductForm(FlaskForm):
     submit = SubmitField('Submit')
 
 
+
+class LandingSettingForm(FlaskForm):
+    site_name = StringField('Site Name e.g bookstore.ng', validators=[InputRequired(), Length(1, 128)])
+    title = StringField('Website Title', validators=[InputRequired(), Length(1, 128)])
+    description = StringField('Website description', validators=[InputRequired(), Length(1, 180)])
+    twitter_name = StringField('Twitter accname only')
+    facebook_name = StringField('Facebook pagename only')
+    instagram_name = StringField('Instagram username only')
+    tiktok_name = StringField('Tiktok username only')
+    linkedin_name = StringField('Linkedin pagename only')
+    snap_chat_name = StringField('Snap chat username only')
+    youtube = StringField('Youtube page name only')
+    blog = StringField('e.g blog')
+    about = StringField('e.g about')
+    contact = StringField('e.g contact')
+    faq = StringField('e.g faq')
+    
+    logo = FileField('Logo', validators=[InputRequired(), FileAllowed(images, 'Images only!')])
+    #images = MultipleFileField('Images', validators=[InputRequired(), FileAllowed(images, 'Images only!')])
+    h1 = StringField('H1 text', validators=[InputRequired(), Length(1, 180)])
+    h2 = StringField('H2 Text')
+    h3 = StringField('H3 Text')
+    h4 = StringField('H4 Text')
+    h5 = StringField('H5 Text')
+  
+    featured_title_one = StringField('e.g Fast delivery')
+    featured_title_one_text = StringField('Write about 90 words')
+    featured_title_one_icon = StringField('e.g fa-truck')
+    featured_title_two = StringField('e.g Creative Strategy')
+    featured_title_two_text = StringField('Write about 90 words')
+    featured_title_two_icon = StringField('e.g fa-landmark')
+    featured_title_three = StringField('e.g High secured')
+    featured_title_three_text = StringField('Write about 90 words')
+    featured_title_three_icon = StringField('e.g fa-lock')
+    
+    google_analytics_id = StringField('Google Analytics ID')
+    other_tracking_analytics_one = StringField('Insert Analytics Script')
+    other_tracking_analytics_two = StringField('Insert Analytics Script')
+    other_tracking_analytics_three = StringField('Insert Analytics Script')
+    other_tracking_analytics_four = StringField('Insert Analytics Script')
+    block_content_one = TextAreaField('Description')
+    html_code_one = TextAreaField('Insert raw html')
+    html_code_two = TextAreaField('Insert raw html')
+    html_code_three = TextAreaField('Insert raw html')
+    html_code_four = TextAreaField('Insert raw html')
+    submit = SubmitField('Submit')
+
+class LandingImageForm(FlaskForm):
+
+    image = FileField('Image', validators=[Optional(), FileAllowed(images, 'Images only!')])
+    submit = SubmitField('Submit')
+
+class OurBrandForm(FlaskForm):
+    ### these are brands which we own in house
+    
+    brand_name_one = StringField('e.g Mediville')
+    brand_name_two = StringField('e.g Networkedng')
+    brand_name_three = StringField('e.g Intel')
+    brand_name_four = StringField('e.g teamsworkspace')
+    brand_name_five = StringField('e.g teamsworkspace')
+    brand_url_one = StringField('e.g mediville.com')
+    brand_url_two = StringField('e.g https://networked.ng')
+    brand_url_three = StringField('e.g http://intel.com')
+    brand_url_four = StringField('e.g teamsworkspace.com.ng')
+    brand_url_five = StringField('e.g https://teamsworkspace.com.ng')
+    submit = SubmitField('Submit')
+
+class NewsLinkForm(FlaskForm):
+    ### these are news sites that write about us
+    
+    news_site_one = StringField('e.g CNN')
+    news_site_two = StringField('e.g BBC')
+    news_site_three = StringField('e.g FoxNews')
+    news_site_four = StringField('e.g PunchNews')
+    news_site_five = StringField('e.g Vanguard')
+    news_url_one = StringField('e.g cnn.com/link_to_news')
+    news_url_two = StringField('e.g https://bbc.com/link_to_news')
+    news_url_three = StringField('e.g http://foxnews.com/link_to_news')
+    news_url_four = StringField('e.g punch.ng/link_to_news')
+    news_url_five = StringField('e.g https://vanguard.com/link_to_news')
+    submit = SubmitField('Submit')

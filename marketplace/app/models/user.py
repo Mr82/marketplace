@@ -409,8 +409,6 @@ class Photo(db.Model):
     image_filename = db.Column(db.String, default=None, nullable=True)
     image_url = db.Column(db.String, default=None, nullable=True)
     user_id = db.Column(db.Integer(), db.ForeignKey(User.id, ondelete="CASCADE"))
-    question_id = db.Column(db.Integer, db.ForeignKey('questions.id', ondelete="CASCADE"))
-    answer_id = db.Column(db.Integer, db.ForeignKey('answers.id', ondelete="CASCADE"))
     created_at = db.Column(db.DateTime, default=db.func.now())
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 

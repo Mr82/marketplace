@@ -75,7 +75,7 @@ class DevelopmentConfig(Config):
     DEBUG = True
     ASSETS_DEBUG = True
     SQLALCHEMY_DATABASE_URI = os.environ.get('DEV_DATABASE_URL') or \
-                              'sqlite:///' + os.path.join(basedir, 'data-dev.sqlite')
+                              'postgresql+psycopg2://postgres:postgres@localhost:5432/postgres'
 
     # 'postgresql+psycopg2://postgres:PostGres@127.0.0.1:5432/development'
 
