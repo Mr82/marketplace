@@ -19,7 +19,7 @@ from app.blueprints.api import main_api
 from app.decorators import seller_required, buyer_required, anonymous_required
 from app.email import send_email
 from app.models import MProduct, MCategory, current_user, User, MShippingMethod, MCartDetails, MSettings, MCurrency, \
-    MShippingMethodPrice, MOrderItem, MOrder, MSellerOrder
+    MShippingMethodPrice, MOrderItem, MOrder, MSellerOrder, LandingSetting, OurBrand, NewsLink
 
 marketplace = Blueprint('marketplace', __name__)
 images = UploadSet('images', IMAGES)
@@ -28,9 +28,14 @@ images = UploadSet('images', IMAGES)
 # Marketplace Shopping Routes start
 @marketplace.route('/')
 def index():
+
+    settings = LandingSetting.query.all()
+    brands = OurBrand.query.all()
+    newslinks = NewsLink.query.all()
     products = MProduct.query.filter_by(availability=True).filter_by(is_featured=True).all()
     categories_instances = MCategory.query.filter_by(is_featured=True).all()
-    return render_template('marketplace/index.html', categories=categories_instances, products=products)
+    return render_template('marketplace/page-index-3.html', categories=categories_instances, products=products,
+                           settings=settings, brands=brands, newslinks=newslinks)
 
 
 @marketplace.route('/categories')
@@ -39,15 +44,15 @@ def categories():
     return render_template('marketplace/categories/index.html', categories=categories_list)
 
 
-@marketplace.route('/category/<int:category_id>')
-def category(category_id):
-    category_instance = MCategory.query.get_or_404(category_id)
+@marketplace.route('/category/<int:category_id>/<category_name>')
+def category(category_id, category_name):
+    category_instance = MCategory.query.get_or_404(category_id, category_name)
     return render_template('marketplace/categories/category.html', category_instance=category_instance)
 
 
-@marketplace.route('/product/<int:product_id>/<name>')
-def product(product_id, name):
-    product_instance = MProduct.query.get_or_404(product_id, name)
+@marketplace.route('/product/<int:product_id>/<product_name>')
+def product(product_id, product_name):
+    product_instance = MProduct.query.get_or_404(product_id, product_name)
     return render_template('marketplace/products/product.html', product_instance=product_instance)
 
 

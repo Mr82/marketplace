@@ -27,6 +27,7 @@ from app.utils import db, login_manager, get_cart, image_size, json_load
 from config import config
 from .assets import app_css, app_js, vendor_css, vendor_js
 from flask_session import Session
+from flask_whooshee import Whooshee
 
 # from app.models import Notification
 
@@ -41,6 +42,7 @@ share = Share()
 moment = Moment()
 jwt = JWTManager()
 sess = Session()
+whooshee = Whooshee()
 # Set up Flask-Login
 login_manager.session_protection = 'strong'
 login_manager.login_view = 'account.login'
@@ -66,6 +68,7 @@ def create_app(config_name):
     app.config['CKEDITOR_FILE_UPLOADER'] = 'upload'
     app.config['CKEDITOR_ENABLE_CSRF'] = True  # if you want to enable CSRF protect, uncomment this line
     app.config['UPLOADED_PATH'] = os.path.join(basedir, 'uploads')
+    #app.config['WHOOSH_BASE']='whoosh'
 
     config[config_name].init_app(app)
 
@@ -83,6 +86,8 @@ def create_app(config_name):
     moment.init_app(app)
     jwt.init_app(app)
     sess.init_app(app)
+    #whooshee.init_app(app)
+    whooshee = Whooshee(app)
     # Register Jinja template functions
     from .utils import register_template_utils
     register_template_utils(app)
@@ -150,7 +155,12 @@ def create_app(config_name):
             h = sha512()
             h.update(base.encode('utf8'))
             session['cart_id'] = h.hexdigest()
-
+    
+    @app.cli.command()
+    def reindex():
+        with app.app_context():
+            whooshee.reindex()
+            
     @app.cli.command()
     def routes():
         """'Display registered routes"""
@@ -164,4 +174,11 @@ def create_app(config_name):
             route = '{:50s} {:25s} {}'.format(endpoint, methods, rule)
             print(route)
 
+
+    @app.template_filter('product')
+    def product(o):
+        """check if object is user"""
+        from app.models import MProduct
+        return o.__class__ == MProduct
+    
     return app

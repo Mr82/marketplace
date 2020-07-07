@@ -1,30 +1,23 @@
+
 {% macro product_wid(product) -%}
-    <div class="ui card">
-        <div class="slick image" >
-            {% for image in json_load(product.images) %}
-                <a href="{{ url_for('_uploads.uploaded_file', setname='images',
-                           filename=image , _external=True) }}" data-lightbox="product-{{ product.id }}">
-                    <div style="width:100%; height: 300px; background-image: url('{{ url_for('_uploads.uploaded_file', setname='images',
+	<div class="col-md-3">
+		<div href="#" class="card card-product-grid">
+		{% for image in json_load(product.images) %}
+			<a href="{{ url_for('marketplace.product', product_id=product.id, product_name=product.name) }}" class="img-wrap"> 
+						                       <div style="width:100%; height: 300px; background-image: url('{{ url_for('_uploads.uploaded_file', setname='images',
                            filename=image , _external=True) }}'); background-position: center;background-size: cover"
                          class="product-image" data-content="{{ product.id }}" data-size="{{ image_size(image ) }}">
                     </div>
-                </a>
-            {% endfor %}
-        </div>
-        <div class="content">
-            <div class="header">{{ product.price }}{{ product.price_currency.symbol }}</div>
-            <div class="description" style="white-space: normal">
-                <b><strong><a href="{{ url_for('marketplace.product', product_id=product.id) }}">{{ product.name }} </a>from <a href="{{ url_for('marketplace.view_seller_products', seller_id=product.seller.id) }}">{{ product.seller.full_name }}</a></strong></b>
-            </div>
-            <div class="meta">
-                <span class="date">{{ product.description }}</span><br>
-                <span>
-                    {% for category in product.categories %}
-                        <small><a href="{{ url_for('marketplace.category', category_id=category.id) }}">{{ category.name }}</a></small>{% if loop.index != product.categories | length %}, {% endif %}
-                    {% endfor %}
-                </span>
-            </div>
-        </div>
+						   </a>
+			<figcaption class="info-wrap">
+				<a href="{{ url_for('_uploads.uploaded_file', setname='images',
+                           filename=image , _external=True) }}" class="title">{{ product.name }}</a>
+				<div class="price mt-1">{{ product.price_currency.symbol }}{{ product.price }}</div> <!-- price-wrap.// -->
+			</figcaption>
+			{% endfor %}
+		</div>
+	</div> <!-- col.// -->
+
     {% if product.availability %}
         <div class="extra content center aligned ui icon two item menu">
             <a class="item" data-tooltip="Buy Now" href="javascript:BuyNow('{{ product.id }}');">
@@ -126,7 +119,7 @@
     </table>
 {% endmacro %}
 {% macro category_wid(category) %}
-    <div class="ui card" onclick="location.href='{{ url_for('marketplace.category', category_id=category.id) }}'">
+    <div class="ui card" onclick="location.href='{{ url_for('marketplace.category', category_id=category.id, category_name=category.name) }}'">
         <div class="image">
             <img src="{{ url_for('_uploads.uploaded_file', setname='images',
                            filename=category.image , _external=True) }}" height="200" style="height: 200px">

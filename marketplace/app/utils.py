@@ -477,3 +477,12 @@ def image_size(val):
 
 def random_char(y):
     return ''.join(random.choice(string.ascii_letters) for x in range(y))
+
+
+class Struct:
+    items = []
+
+    def __init__(self, items=None):
+        if items is None:
+            items = []
+        self.items = items

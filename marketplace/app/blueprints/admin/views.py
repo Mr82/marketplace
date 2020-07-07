@@ -373,7 +373,7 @@ def delete_contact_message(message_id):
 def landing_setting(id=None):
     """Adds information to the landing page."""
     settings = db.session.query(LandingSetting.id).count()
-    if settings is 1:
+    if settings == 1:
         return redirect(url_for('admin.edit_landing_setting', id=1))
     form = LandingSettingForm()
     if request.method == 'POST':
@@ -461,7 +461,7 @@ def show(id):
 def landing_brand_setting(id=None):
     """Adds information to the landing page."""
     settings = db.session.query(OurBrand.id).count()
-    if settings is 1:
+    if settings == 1:
         return redirect(url_for('admin.edit_landing_brand_setting', id=1))
     form = OurBrandForm()
     if request.method == 'POST':
@@ -499,3 +499,49 @@ def edit_landing_brand_setting(id):
             flash('Settings successfully edited', 'success')
             return redirect(url_for('admin.frontend_dashboard'))
     return render_template('admin/new_landing_brand_setting.html', form=form)
+
+@admin.route('/landing-news-settings', methods=['GET', 'POST'])
+@admin.route('/landing-news-settings/edit/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def landing_news_setting(id=None):
+    """Adds information to the landing page."""
+    settings = db.session.query(NewsLink.id).count()
+    if settings == 1:
+        return redirect(url_for('admin.edit_landing_brand_setting', id=1))
+    form = NewsLinkForm()
+    if request.method == 'POST':
+            settings = NewsLink(
+
+                news_site_one = form.news_site_one.data,
+                news_site_two = form.news_site_two.data,
+                news_site_three = form.news_site_three.data,
+                news_site_five = form.news_site_five.data,
+                news_url_one = form.news_url_five.data,
+                news_url_two = form.news_url_five.data,
+                news_url_three = form.news_url_five.data,
+                news_url_four = form.news_url_five.data,
+                news_url_five = form.news_url_five.data
+            )
+            db.session.add(settings)
+            db.session.commit()
+            flash('Settings successfully added', 'success')
+            return redirect(url_for('admin.edit_landing_brand_setting', id=id))
+    return render_template('admin/new_landing_edit_setting.html', form=form)
+
+
+@admin.route('/edit-landing-brand-settings/<int:id>', methods=['GET', 'POST'])
+@login_required
+@admin_required
+def edit_landing_news_setting(id):
+    """Edit information to the landing page."""
+    settings = NewsLink.query.get(id)
+    form = NewsLinkForm(obj=settings)
+    
+    if request.method == 'POST':
+            form.populate_obj(settings)
+            db.session.add(settings)
+            db.session.commit()
+            flash('Settings successfully edited', 'success')
+            return redirect(url_for('admin.frontend_dashboard'))
+    return render_template('admin/new_landing_edit_setting.html', form=form)

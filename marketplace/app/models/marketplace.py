@@ -3,7 +3,10 @@ import time
 
 from flask import url_for
 from sqlalchemy.ext.hybrid import hybrid_property
-from sqlalchemy.orm import backref
+from sqlalchemy.orm import backref, query_expression
+
+from app import whooshee
+#from flask_whooshee import Whooshee
 from app.utils import db, random_char
 
 
@@ -75,8 +78,10 @@ class MProductCategory(db.Model):
     updated_at = db.Column(db.DateTime, default=db.func.now(), onupdate=db.func.now())
 
 
+@whooshee.register_model('name', 'description')
 class MProduct(db.Model):
     __tablename__ = 'marketplace_products'
+
     id = db.Column(db.Integer, primary_key=True, autoincrement=True)
     name = db.Column(db.String())
     images = db.Column(db.Text)
@@ -101,6 +106,7 @@ class MProduct(db.Model):
 
     price_currency = db.relationship("MCurrency")
     seller = db.relationship("User", backref="products")
+    score = query_expression()
 
     @property
     def image_items(self):

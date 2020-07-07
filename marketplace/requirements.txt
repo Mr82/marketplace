@@ -50,3 +50,4 @@ email_validator
 bs4
 apscheduler
 pandas
+Flask-Whooshee

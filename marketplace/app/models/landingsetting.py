@@ -77,3 +77,12 @@ class NewsLink(db.Model):
     news_url_three = db.Column(db.String(25), unique=True)
     news_url_four = db.Column(db.String(25), unique=True)
     brand_url_five = db.Column(db.String(25), unique=True)
+
+
+class TestDB(db.Model):
+    __tablename__ = 'testdb'
+
+    id = db.Column(db.Integer, primary_key=True)
+    news_site_one_1 = db.Column(db.String(25), unique=True)
+    news_site_twi_2 = db.Column(db.String(25), unique=True)
+    

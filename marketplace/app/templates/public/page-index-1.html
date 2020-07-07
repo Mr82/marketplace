@@ -12,7 +12,7 @@
 <meta name="og:title" content="{{ setting.title }}"/>
 <meta name="og:type" content="website"/>
 <meta name="og:url" content="https://www.{{ setting.site_name }}"/>
-<meta name="og:image" content="{{ url_for('static', filename='images/home/slider/hill.png') }}"/>
+<meta name="og:image" content="{{ url_for('static', filename='frontend/images/meta.png') }}"/>
 <meta name="og:site_name" content="{{ settings.site_name }}"/>
 <meta name="og:description"
           content="{{ setting.description }}"/>
@@ -23,7 +23,7 @@
 <meta property="og:title" content="{{ setting.title }}"/>
 <meta property="og:description"
           content="{{ setting.description }}"/>
-<meta property="og:image" content="{{ url_for('static', filename='images/home/slider/hill.png') }}"/>
+<meta property="og:image" content="{{ url_for('static', filename='frontend/images/meta.png') }}"/>
 {% endfor %}
 {% for setting in settings %}
 <title>{{setting.title}}</title>
@@ -63,6 +63,7 @@ $(document).ready(function() {
 {{setting.other_tracking_analytics_two|safe}}
 {{setting.other_tracking_analytics_three|safe}}
 {{setting.other_tracking_analytics_four|safe}}
+
 </head>
 <body>
 
@@ -99,7 +100,7 @@ $(document).ready(function() {
 		</a> <!-- brand-wrap.// -->
 	</div>
 	<div class="col-lg-6 col-12 col-sm-12">
-		<form action="#" class="search">
+		<form class="search" method="GET" action="{{ url_for('main.search') }}">
 			<div class="input-group w-100">
 			    <input type="text" class="form-control" placeholder="Search">
 			    <div class="input-group-append">
@@ -120,10 +121,16 @@ $(document).ready(function() {
 				<a href="#" class="icon icon-sm rounded-circle border"><i class="fa fa-user"></i></a>
 				<div class="text">
 					<span class="text-muted">Welcome!</span>
+					{% if current_user.is_authenticated %}
 					<div> 
-						<a href="#">Sign in</a> |  
-						<a href="#"> Register</a>
+						{{current_user.full_name}}
 					</div>
+					{% else %}
+					<div> 
+						<a href="{{url_for('account.login')}}">Sign in</a> |  
+						<a href="{{url_for('account.register')}}"> Register</a>
+					</div>
+					{% endif %}
 				</div>
 			</div>
 		</div> <!-- widgets-wrap.// -->
@@ -172,7 +179,7 @@ $(document).ready(function() {
           <a class="nav-link" href="#">Clothing</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Furnitures</a>
+          <a class="nav-link" href="#">Cate</a>
         </li>
       </ul>
     </div> <!-- collapse .// -->
@@ -494,57 +501,62 @@ $(document).ready(function() {
 </div> <!-- container .//  -->
 </section>
 <!-- ========================= SECTION CONTENT END// ========================= -->
-
 {% for brand in brands %}
-{% if brand %}
 <!-- ========================= SECTION  ========================= -->
 <section class="section-name bg padding-y-sm">
 <div class="container">
+{% if brand %}
 <header class="section-heading">
 	<h3 class="section-title">Our Brands</h3> <!---this could be used to link to all our brands----->
 </header><!-- sect-heading -->
+{% endif %}
+
 <div class="row">
+{% if brand.brand_name_one %}
 	<div class="col-md-2 col-6">
 		<figure class="box item-logo">
-			<a href="#"><img src="frontend/images/logos/logo1.png"></a>
-			<figcaption class="border-top pt-2">36 Products</figcaption>
+			<a href="{{brand.brand_url_one}}"><img src="frontend/images/{{brand.brand_name_one}}.png"></a>
+			<figcaption class="border-top pt-2">{{brand.brand_name_one}}</figcaption>
 		</figure> <!-- item-logo.// -->
 	</div> <!-- col.// -->
+	{% endif %}
+{% if brand.brand_name_two %}
 	<div class="col-md-2  col-6">
 		<figure class="box item-logo">
-			<a href="#"><img src="frontend/images/logos/logo2.png"></a>
-			<figcaption class="border-top pt-2">980 Products</figcaption>
+			<a href="{{brand.brand_url_two}}"><img src="frontend/images/{{brand.brand_name_two}}.png"></a>
+			<figcaption class="border-top pt-2">{{brand.brand_name_two}}</figcaption>
 		</figure> <!-- item-logo.// -->
 	</div> <!-- col.// -->
+	{% endif %}
+{% if brand.brand_name_three %}
 	<div class="col-md-2  col-6">
 		<figure class="box item-logo">
-			<a href="#"><img src="frontend/images/logos/logo3.png"></a>
-			<figcaption class="border-top pt-2">25 Products</figcaption>
+			<a href="{{brand.brand_url_three}}"><img src="frontend/images/{{brand.brand_name_three}}.png"></a>
+			<figcaption class="border-top pt-2">{{brand.brand_name_three}}</figcaption>
 		</figure> <!-- item-logo.// -->
 	</div> <!-- col.// -->
+	{% endif %}
+{% if brand.brand_name_four %}
 	<div class="col-md-2  col-6">
 		<figure class="box item-logo">
-			<a href="#"><img src="frontend/images/logos/logo4.png"></a>
-			<figcaption class="border-top pt-2">72 Products</figcaption>
+			<a href="{{brand.brand_url_four}}"><img src="frontend/images/{{brand.brand_name_four}}.png"></a>
+			<figcaption class="border-top pt-2">{{brand.brand_name_four}}</figcaption>
 		</figure> <!-- item-logo.// -->
 	</div> <!-- col.// -->
+	{% endif %}
+{% if brand.brand_name_five %}
 	<div class="col-md-2  col-6">
 		<figure class="box item-logo">
-			<a href="#"><img src="frontend/images/logos/logo5.png"></a>
-			<figcaption class="border-top pt-2">41 Products</figcaption>
+			<a href="{{brand.brand_url_five}}"><img src="frontend/images/{{brand.brand_name_five}}.png"></a>
+			<figcaption class="border-top pt-2">{{brand.brand_name_five}}</figcaption>
 		</figure> <!-- item-logo.// -->
 	</div> <!-- col.// -->
-	<div class="col-md-2  col-6">
-		<figure class="box item-logo">
-			<a href="#"><img src="frontend/images/logos/logo2.png"></a>
-			<figcaption class="border-top pt-2">12 Products</figcaption>
-		</figure> <!-- item-logo.// -->
-	</div> <!-- col.// -->
+			{% else %}
+		{% endif %}
+
 </div> <!-- row.// -->
 </div><!-- container // -->
 </section>
-<!-- ========================= SECTION  END// ========================= -->
-{% endif %}
 {% endfor %}
 
 
@@ -632,7 +644,7 @@ $(document).ready(function() {
 {% if news.news_site_one %}
 	<div class="col-md-2 col-6">
 		<figure class="box item-logo">
-			<a href="{{news.news_url_one}}"><img src="frontend/images/{{news.news_site_five}}.png"></a>
+			<a href="{{news.news_url_one}}"><img src="frontend/images/{{news.news_site_one}}.png"></a>
 			<figcaption class="border-top pt-2">{{news.news_site_one}}</figcaption>
 		</figure> <!-- item-logo.// -->
 	</div> <!-- col.// -->
@@ -640,7 +652,7 @@ $(document).ready(function() {
 {% if news.news_site_two %}
 	<div class="col-md-2  col-6">
 		<figure class="box item-logo">
-			<a href="{{news.news_url_two}}"><img src="frontend/images/{{news.news_site_five}}.png"></a>
+			<a href="{{news.news_url_two}}"><img src="frontend/images/{{news.news_site_two}}.png"></a>
 			<figcaption class="border-top pt-2">{{news.news_site_two}}</figcaption>
 		</figure> <!-- item-logo.// -->
 	</div> <!-- col.// -->
@@ -648,7 +660,7 @@ $(document).ready(function() {
 {% if news.news_site_three %}
 	<div class="col-md-2  col-6">
 		<figure class="box item-logo">
-			<a href="{{news.news_url_three}}"><img src="frontend/images/{{news.news_site_five}}.png"></a>
+			<a href="{{news.news_url_three}}"><img src="frontend/images/{{news.news_site_three}}.png"></a>
 			<figcaption class="border-top pt-2">{{news.news_site_three}}</figcaption>
 		</figure> <!-- item-logo.// -->
 	</div> <!-- col.// -->
@@ -656,7 +668,7 @@ $(document).ready(function() {
 {% if news.news_site_four %}
 	<div class="col-md-2  col-6">
 		<figure class="box item-logo">
-			<a href="{{news.news_url_four}}"><img src="frontend/images/{{news.news_site_five}}.png"></a>
+			<a href="{{news.news_url_four}}"><img src="frontend/images/{{news.news_site_four}}.png"></a>
 			<figcaption class="border-top pt-2">{{news.news_site_four}}</figcaption>
 		</figure> <!-- item-logo.// -->
 	</div> <!-- col.// -->
@@ -674,9 +686,10 @@ $(document).ready(function() {
 </div> <!-- row.// -->
 </div><!-- container // -->
 </section>
+{% endfor %}
 <!-- ========================= SECTION  END// ========================= -->
 
-{% endfor %}
+
 		<section class="footer-bottom row">
 			<div class="col-md-2">
 				<p class="text-muted"> &copy {{setting.site_name}} </p>
@@ -695,7 +708,9 @@ $(document).ready(function() {
 	</div><!-- //container -->
 </footer>
 <!-- ========================= FOOTER END // ========================= -->
+
 {% endfor %}
+
 
 </body>
 </html>

@@ -5,8 +5,8 @@
 {% endblock %}
 {% block custom_head_tags %}
     <meta name="description" content="Mediville Marketplace Product : {{ product_instance.name }}, {{ product_instance.description }}">
-    <link rel="canonical" href="{{ url_for('marketplace.product', product_id=product_instance.id, _external=True) }}">
-    <meta property="og:url"                content="{{ url_for('marketplace.product', product_id=product_instance.id, _external=True) }}" />
+    <link rel="canonical" href="{{ url_for('marketplace.product', product_id=product_instance.id, product_name=product_instance.name,_external=True) }}">
+    <meta property="og:url"                content="{{ url_for('marketplace.product', product_id=product_instance.id, product_name=product_instance.name,_external=True) }}" />
     <meta property="og:type"               content="article" />
     <meta property="og:title"              content="Mediville Marketplace - {{ product_instance.name }}" />
     <meta property="og:description"        content="Mediville Marketplace Product : {{ product_instance.name }}, {{ product_instance.description }}" />
@@ -76,7 +76,7 @@
             <hr>
             <div class="content">
                 <h3>
-                    <b><strong><a href="{{ url_for('marketplace.product', product_id=product_instance.id) }}">{{ product_instance.name }} </a>from <a href="{{ url_for('marketplace.view_seller_products', seller_id=product_instance.seller.id) }}">{{ product_instance.seller.full_name }}</a></strong></b>
+                    <b><strong><a href="{{ url_for('marketplace.product', product_id=product_instance.id, product_name=product_instance.name) }}">{{ product_instance.name }} </a>from <a href="{{ url_for('marketplace.view_seller_products', seller_id=product_instance.seller.id) }}">{{ product_instance.seller.full_name }}</a></strong></b>
                 </h3>
                 <div class="meta">
                     <p><b><strong>Price: </strong></b>{{ product_instance.price }}{{ product_instance.price_currency.symbol }}</p>

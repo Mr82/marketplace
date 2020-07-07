@@ -3,7 +3,7 @@ from flask_login import current_user
 
 from app import db
 from app.blueprints.account.forms import ContactForm
-from app.models import EditableHTML, ContactMessage, LandingSetting, OurBrand, NewsLink
+from app.models import EditableHTML, ContactMessage, LandingSetting, OurBrand, NewsLink, User
 from app.blueprints.public.forms import PublicContactForm
 
 public = Blueprint('public', __name__)
@@ -15,9 +15,10 @@ def index():
     brands = OurBrand.query.all()
     newslinks = NewsLink.query.all()
     if current_user.is_authenticated:
-        return redirect(url_for('main.index'))
+        return redirect(url_for('marketplace.index'))
     else:
-        return render_template('public/page-index-1.html', settings=settings, brands=brands, newslinks=newslinks)
+        return render_template('public/page-index-1.html', settings=settings, brands=brands, newslinks=newslinks, current_user=current_user)
+
 
 
 @public.route('/about')
