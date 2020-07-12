@@ -32,7 +32,7 @@ def index():
     settings = LandingSetting.query.all()
     brands = OurBrand.query.all()
     newslinks = NewsLink.query.all()
-    products = MProduct.query.filter_by(availability=True).filter_by(is_featured=True).all()
+    products = MProduct.query.filter_by(availability=True).filter_by(is_featured=True).all()#.limit(5).all()
     categories_instances = MCategory.query.filter_by(is_featured=True).all()
     return render_template('marketplace/page-index-3.html', categories=categories_instances, products=products,
                            settings=settings, brands=brands, newslinks=newslinks)
@@ -52,8 +52,9 @@ def category(category_id, category_name):
 
 @marketplace.route('/product/<int:product_id>/<product_name>')
 def product(product_id, product_name):
+    settings = LandingSetting.query.all()
     product_instance = MProduct.query.get_or_404(product_id, product_name)
-    return render_template('marketplace/products/product.html', product_instance=product_instance)
+    return render_template('marketplace/products/product.html', product_instance=product_instance, settings=settings)
 
 
 @marketplace.route('/seller/<int:seller_id>/products')

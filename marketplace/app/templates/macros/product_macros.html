@@ -10,8 +10,7 @@
                     </div>
 						   </a>
 			<figcaption class="info-wrap">
-				<a href="{{ url_for('_uploads.uploaded_file', setname='images',
-                           filename=image , _external=True) }}" class="title">{{ product.name }}</a>
+				<a href="{{ url_for('marketplace.product', product_id=product.id, product_name=product.name) }}" class="title">{{ product.name }}</a>
 				<div class="price mt-1">{{ product.price_currency.symbol }}{{ product.price }}</div> <!-- price-wrap.// -->
 			</figcaption>
 			{% endfor %}
@@ -46,13 +45,13 @@
         <div class="content">
             <div class="header">{{ product['object'].price }}{{ product['object'].price_currency.symbol }}</div>
             <div class="description" style="white-space: normal">
-                <b><strong><a href="{{ url_for('marketplace.product', product_id=product['object'].id) }}">{{ product['object'].name }} </a>from <a href="{{ url_for('marketplace.view_seller_products', seller_id=product['object'].seller.id) }}">{{ product['object'].seller.full_name }}</a></strong></b>
+                <b><strong><a href="{{ url_for('marketplace.product', product_id=product['object'].id, product_name=product['object'].name)}}">{{ product['object'].name }} </a>from <a href="{{ url_for('marketplace.view_seller_products', seller_id=product['object'].seller.id) }}">{{ product['object'].seller.full_name }}</a></strong></b>
             </div>
             <div class="meta">
                 <span class="date">{{ product['object'].description }}</span><br>
                 <span>
                     {% for category in product['object'].categories %}
-                        <small><a href="{{ url_for('marketplace.category', category_id=category.id) }}">{{ category.name }}</a></small>{% if loop.index != product['object'].categories | length %}, {% endif %}
+                        <small><a href="{{url_for('marketplace.category', category_id=category.id, category_name=category.name) }}">{{ category.name }}</a></small>{% if loop.index != product['object'].categories | length %}, {% endif %}
                     {% endfor %}
                 </span>
             </div>

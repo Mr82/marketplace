@@ -123,6 +123,9 @@ $(document).ready(function() {
         </div>
     {% endif %}
 
+
+    {% include 'partials/_footer.html' %}
+
 <!-- ========================= FOOTER ========================= -->
 <footer class="section-footer border-top padding-y">
 	<div class="container">
@@ -138,7 +141,24 @@ $(document).ready(function() {
 </footer>
 <!-- ========================= FOOTER END // ========================= -->
 
-
-
+<script src="//code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.19.0/axios.min.js"></script>
+{% assets 'vendor_js' %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}
+{% assets 'app_js' %}
+    <script type="text/javascript" src="{{ ASSET_URL }}"></script>{% endassets %}
+<script type="text/javascript" src="/static/scripts/custom.js"></script>
+{% include 'partials/_analytics.html' %}
+{{ moment.include_moment() }}
+<script src="{{ url_for('static', filename='messaging/checkbox.min.js') }}"></script>
+<script src="{{ url_for('static', filename='messaging/vue.js') }}"></script>
+<script src="{{ url_for('static', filename='messaging/socket.io.js') }}"></script>
+<script src="{{ url_for('static', filename='messaging/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/toastr.min.js') }}"></script>
+{% include 'partials/_realtime.html' %}
+{% block scripts %}{% endblock %}
+{% if request.blueprint == 'marketplace' %}
+    {% include 'marketplace/partials/scripts.html' %}
+{% endif %}
 </body>
 </html>

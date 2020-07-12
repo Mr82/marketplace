@@ -30,19 +30,9 @@
 	<a href="#" class="btn btn-outline-primary float-right">See all</a>
 	<h3 class="section-title">Popular products</h3>
 </header><!-- sect-heading -->
-
-	
-<div class="row">
-	<div class="col-md-3">
-		<div href="#" class="card card-product-grid">
-			<a href="#" class="img-wrap"> <img src="images/items/1.jpg"> </a>
-			<figcaption class="info-wrap">
-				<a href="#" class="title">Just another product name</a>
-				<div class="price mt-1">{{ product.price }}{{ product.price_currency.symbol }}</div> <!-- price-wrap.// -->
-			</figcaption>
-		</div>
-	</div> <!-- col.// -->
-</div> <!-- row.// -->
+                {% for product in products %}
+                    {{ products_macros.product_wid(product) }}
+                {% endfor %}
 
 </div><!-- container // -->
 </section>
