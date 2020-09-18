@@ -31,7 +31,11 @@ def index():
     """Admin dashboard page."""
     return render_template('admin/index.html')
 
+<<<<<<< HEAD
 @admin.route('/settings/public/')
+=======
+@admin.route('/settings/dashboard/')
+>>>>>>> a891be8f0e0047bf53f934b444142ff5a5982246
 @login_required
 @admin_required
 def site_public():

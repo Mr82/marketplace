@@ -21,7 +21,10 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from app.utils import pretty_date, db, login_manager, jsonify_object
 from .message import Message
+<<<<<<< HEAD:businessmanager/app/models/user.py
 from app import whooshee
+=======
+>>>>>>> a891be8f0e0047bf53f934b444142ff5a5982246:marketplace/app/models/user.py
 
 
 class Permission:

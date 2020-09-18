@@ -1,7 +1,11 @@
 from datetime import datetime
 from flask import Blueprint, render_template, redirect, url_for, flash, abort
 from flask_login import login_required, current_user
+<<<<<<< HEAD
 from app.models import *
+=======
+from app.models import EditableHTML, SiteSetting
+>>>>>>> a891be8f0e0047bf53f934b444142ff5a5982246
 from .forms import SiteSettingForm
 import commonmark
 from app import db
@@ -11,6 +15,7 @@ from app.decorators import admin_required
 public = Blueprint('public', __name__)
 
 
+<<<<<<< HEAD
 
 @public.route('/')
 def index():
@@ -27,6 +32,18 @@ def index():
                                newslinks=newslinks, current_user=current_user, categories=categories_instances,
                                products=products, public=public)
 
+=======
+@public.route('/')
+def index():
+    
+    public = SiteSetting.query.limit(1).all()
+    return render_template("public/public.html",public=public)
+
+@public.route('/about')
+def about():
+    public = SiteSetting.find_all()
+    return render_template("public/about.html",public=public)
+>>>>>>> a891be8f0e0047bf53f934b444142ff5a5982246
 
 @public.route('/all')
 @login_required
@@ -109,11 +126,14 @@ def delete_site_setting(id):
     return redirect(url_for('public.site_public'))
 
 
+<<<<<<< HEAD
 @public.route('/about')
 def about():
     public = SiteSetting.find_all()
     return render_template("public/about.html",public=public)
 
+=======
+>>>>>>> a891be8f0e0047bf53f934b444142ff5a5982246
 @public.route('/privacy')
 def privacy():
     editable_html_obj = EditableHTML.get_editable_html('privacy')

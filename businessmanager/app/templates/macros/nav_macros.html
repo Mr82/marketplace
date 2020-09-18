@@ -32,7 +32,11 @@
 
     {% set frontend_settings_editor = [] %}
     {% if current_user.is_authenticated %}
+<<<<<<< HEAD
       {% set frontend_settings_editor = ([(current_user.role.index + '.frontend_dashboard', ' Frontend', 'book')]) %}
+=======
+      {% set frontend_settings_editor = ([(current_user.role.index + '.site_public', ' Frontend', 'book')]) %}
+>>>>>>> a891be8f0e0047bf53f934b444142ff5a5982246
     {% endif %} 
     {{ render_menu_items( frontend_settings_editor ) }}
 

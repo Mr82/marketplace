@@ -135,6 +135,7 @@ def create_app(config_name):
 
     from .business.blog import blog as blog_blueprint
     app.register_blueprint(blog_blueprint, url_prefix='/blog')
+<<<<<<< HEAD:businessmanager/app/__init__.py
 
     from .business.notification import notification as notification_blueprint
     app.register_blueprint(notification_blueprint)
@@ -148,6 +149,21 @@ def create_app(config_name):
     from .business.message import message as message_blueprint
     app.register_blueprint(message_blueprint, url_prefix='/message')
 
+=======
+
+    from .business.notification import notification as notification_blueprint
+    app.register_blueprint(notification_blueprint)
+
+    from .business.organisations import organisations as organisations_blueprint
+    app.register_blueprint(organisations_blueprint, url_prefix='/organizations')
+
+    from .business.marketplace import marketplace as marketplace_blueprint
+    app.register_blueprint(marketplace_blueprint, url_prefix='/marketplace')
+
+    from .business.message import message as message_blueprint
+    app.register_blueprint(message_blueprint, url_prefix='/message')
+
+>>>>>>> a891be8f0e0047bf53f934b444142ff5a5982246:marketplace/app/__init__.py
     from .business.invite import invite as invite_blueprint
     app.register_blueprint(invite_blueprint)
     

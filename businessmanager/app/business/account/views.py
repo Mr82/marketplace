@@ -100,7 +100,19 @@ def register():
                 first_name=form.first_name.data,
                 last_name=form.last_name.data,
                 email=form.email.data,
+<<<<<<< HEAD:businessmanager/app/business/account/views.py
                 #profession=profession,
+=======
+                gender=form.gender.data,
+                profession=profession,
+                area_code=form.area_code.data,
+                mobile_phone=form.mobile_phone.data,
+                #summary_text=form.summary_text.data,
+                zip=form.zip.data,
+                city=form.city.data,
+                state=form.state.data,
+                country=form.country.data,
+>>>>>>> a891be8f0e0047bf53f934b444142ff5a5982246:marketplace/app/blueprints/account/views.py
                 password=form.password.data)
             db.session.add(user_instance)
             db.session.commit()
